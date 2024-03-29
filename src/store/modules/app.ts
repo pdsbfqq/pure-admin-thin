@@ -1,11 +1,11 @@
-import { store } from "@/store";
-import { defineStore } from "pinia";
-import type { appType } from "./types";
-import { getConfig, responsiveStorageNameSpace } from "@/config";
-import { deviceDetection, storageLocal } from "@pureadmin/utils";
+import { store } from '@/store';
+import { defineStore } from 'pinia';
+import type { appType } from './types';
+import { getConfig, responsiveStorageNameSpace } from '@/config';
+import { deviceDetection, storageLocal } from '@pureadmin/utils';
 
 export const useAppStore = defineStore({
-  id: "pure-app",
+  id: 'pure-app',
   state: (): appType => ({
     sidebar: {
       opened:
@@ -20,7 +20,7 @@ export const useAppStore = defineStore({
       storageLocal().getItem<StorageConfigs>(
         `${responsiveStorageNameSpace()}layout`
       )?.layout ?? getConfig().Layout,
-    device: deviceDetection() ? "mobile" : "desktop",
+    device: deviceDetection() ? 'mobile' : 'desktop',
     // 浏览器窗口的可视区域大小
     viewportSize: {
       width: document.documentElement.clientWidth,

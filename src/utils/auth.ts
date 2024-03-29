@@ -1,6 +1,6 @@
-import Cookies from "js-cookie";
-import { storageLocal } from "@pureadmin/utils";
-import { useUserStoreHook } from "@/store/modules/user";
+import Cookies from 'js-cookie';
+import { storageLocal } from '@pureadmin/utils';
+import { useUserStoreHook } from '@/store/modules/user';
 
 export interface DataInfo<T> {
   /** token */
@@ -15,15 +15,15 @@ export interface DataInfo<T> {
   roles?: Array<string>;
 }
 
-export const userKey = "user-info";
-export const TokenKey = "authorized-token";
+export const userKey = 'user-info';
+export const TokenKey = 'authorized-token';
 /**
  * 通过`multiple-tabs`是否在`cookie`中，判断用户是否已经登录系统，
  * 从而支持多标签页打开已经登录的系统后无需再登录。
  * 浏览器完全关闭后`multiple-tabs`将自动从`cookie`中销毁，
  * 再次打开浏览器需要重新登录系统
  * */
-export const multipleTabsKey = "multiple-tabs";
+export const multipleTabsKey = 'multiple-tabs';
 
 /** 获取`token` */
 export function getToken(): DataInfo<number> {
@@ -54,7 +54,7 @@ export function setToken(data: DataInfo<Date>) {
 
   Cookies.set(
     multipleTabsKey,
-    "true",
+    'true',
     isRemembered
       ? {
           expires: loginDay
@@ -78,7 +78,7 @@ export function setToken(data: DataInfo<Date>) {
     setUserKey(username, roles);
   } else {
     const username =
-      storageLocal().getItem<DataInfo<number>>(userKey)?.username ?? "";
+      storageLocal().getItem<DataInfo<number>>(userKey)?.username ?? '';
     const roles =
       storageLocal().getItem<DataInfo<number>>(userKey)?.roles ?? [];
     setUserKey(username, roles);
@@ -94,5 +94,5 @@ export function removeToken() {
 
 /** 格式化token（jwt格式） */
 export const formatToken = (token: string): string => {
-  return "Bearer " + token;
+  return 'Bearer ' + token;
 };

@@ -1,21 +1,21 @@
-import { storeToRefs } from "pinia";
-import { getConfig } from "@/config";
-import { emitter } from "@/utils/mitt";
-import userAvatar from "@/assets/user.jpg";
-import { getTopMenu } from "@/router/utils";
-import { useFullscreen } from "@vueuse/core";
-import { useGlobal } from "@pureadmin/utils";
-import type { routeMetaType } from "../types";
-import { useRouter, useRoute } from "vue-router";
-import { router, remainingPaths } from "@/router";
-import { computed, type CSSProperties } from "vue";
-import { useAppStoreHook } from "@/store/modules/app";
-import { useUserStoreHook } from "@/store/modules/user";
-import { usePermissionStoreHook } from "@/store/modules/permission";
-import ExitFullscreen from "@iconify-icons/ri/fullscreen-exit-fill";
-import Fullscreen from "@iconify-icons/ri/fullscreen-fill";
+import { storeToRefs } from 'pinia';
+import { getConfig } from '@/config';
+import { emitter } from '@/utils/mitt';
+import userAvatar from '@/assets/user.jpg';
+import { getTopMenu } from '@/router/utils';
+import { useFullscreen } from '@vueuse/core';
+import { useGlobal } from '@pureadmin/utils';
+import type { routeMetaType } from '../types';
+import { useRouter, useRoute } from 'vue-router';
+import { router, remainingPaths } from '@/router';
+import { computed, type CSSProperties } from 'vue';
+import { useAppStoreHook } from '@/store/modules/app';
+import { useUserStoreHook } from '@/store/modules/user';
+import { usePermissionStoreHook } from '@/store/modules/permission';
+import ExitFullscreen from '@iconify-icons/ri/fullscreen-exit-fill';
+import Fullscreen from '@iconify-icons/ri/fullscreen-fill';
 
-const errorInfo = "当前路由配置不正确，请检查配置";
+const errorInfo = '当前路由配置不正确，请检查配置';
 
 export function useNav() {
   const route = useRoute();
@@ -24,15 +24,15 @@ export function useNav() {
   const { isFullscreen, toggle } = useFullscreen();
   const { wholeMenus } = storeToRefs(usePermissionStoreHook());
   /** 平台`layout`中所有`el-tooltip`的`effect`配置，默认`light` */
-  const tooltipEffect = getConfig()?.TooltipEffect ?? "light";
+  const tooltipEffect = getConfig()?.TooltipEffect ?? 'light';
 
   const getDivStyle = computed((): CSSProperties => {
     return {
-      width: "100%",
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "space-between",
-      overflow: "hidden"
+      width: '100%',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      overflow: 'hidden'
     };
   });
 
@@ -42,7 +42,7 @@ export function useNav() {
   });
 
   const avatarsStyle = computed(() => {
-    return username.value ? { marginRight: "10px" } : "";
+    return username.value ? { marginRight: '10px' } : '';
   });
 
   const isCollapse = computed(() => {
@@ -79,7 +79,7 @@ export function useNav() {
   }
 
   function onPanel() {
-    emitter.emit("openPanel");
+    emitter.emit('openPanel');
   }
 
   function toggleSideBar() {
@@ -95,7 +95,7 @@ export function useNav() {
     const httpReg = /^http(s?):\/\//;
     const routeChildPath = route.children[0]?.path;
     if (httpReg.test(routeChildPath)) {
-      return route.path + "/" + routeChildPath;
+      return route.path + '/' + routeChildPath;
     } else {
       return routeChildPath;
     }
@@ -103,7 +103,7 @@ export function useNav() {
 
   function menuSelect(indexPath: string) {
     if (wholeMenus.value.length === 0 || isRemaining(indexPath)) return;
-    emitter.emit("changLayoutRoute", indexPath);
+    emitter.emit('changLayoutRoute', indexPath);
   }
 
   /** 判断路径是否参与菜单 */
@@ -113,7 +113,7 @@ export function useNav() {
 
   /** 获取`logo` */
   function getLogo() {
-    return new URL("/logo.svg", import.meta.url).href;
+    return new URL('/logo.svg', import.meta.url).href;
   }
 
   return {

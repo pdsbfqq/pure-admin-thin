@@ -1,4 +1,4 @@
-import "./index.css";
+import './index.css';
 import {
   h,
   ref,
@@ -7,15 +7,15 @@ import {
   nextTick,
   defineComponent,
   getCurrentInstance
-} from "vue";
-import type { OptionsType } from "./type";
-import { useRenderIcon } from "@/components/ReIcon/src/hooks";
+} from 'vue';
+import type { OptionsType } from './type';
+import { useRenderIcon } from '@/components/ReIcon/src/hooks';
 import {
   isFunction,
   isNumber,
   useDark,
   useResizeObserver
-} from "@pureadmin/utils";
+} from '@pureadmin/utils';
 
 const props = {
   options: {
@@ -26,7 +26,7 @@ const props = {
   modelValue: {
     type: undefined,
     require: false,
-    default: "0"
+    default: '0'
   },
   /** 将宽度调整为父元素宽度	 */
   block: {
@@ -36,40 +36,40 @@ const props = {
 };
 
 export default defineComponent({
-  name: "ReSegmented",
+  name: 'ReSegmented',
   props,
-  emits: ["change", "update:modelValue"],
+  emits: ['change', 'update:modelValue'],
   setup(props, { emit }) {
     const width = ref(0);
     const translateX = ref(0);
     const { isDark } = useDark();
     const initStatus = ref(false);
     const curMouseActive = ref(-1);
-    const segmentedItembg = ref("");
+    const segmentedItembg = ref('');
     const instance = getCurrentInstance()!;
     const curIndex = isNumber(props.modelValue)
-      ? toRef(props, "modelValue")
+      ? toRef(props, 'modelValue')
       : ref(0);
 
     function handleChange({ option, index }, event: Event) {
       if (option.disabled) return;
       event.preventDefault();
       isNumber(props.modelValue)
-        ? emit("update:modelValue", index)
+        ? emit('update:modelValue', index)
         : (curIndex.value = index);
-      segmentedItembg.value = "";
-      emit("change", { index, option });
+      segmentedItembg.value = '';
+      emit('change', { index, option });
     }
 
     function handleMouseenter({ option, index }, event: Event) {
       event.preventDefault();
       curMouseActive.value = index;
       if (option.disabled || curIndex.value === index) {
-        segmentedItembg.value = "";
+        segmentedItembg.value = '';
       } else {
         segmentedItembg.value = isDark.value
-          ? "#1f1f1f"
-          : "rgba(0, 0, 0, 0.06)";
+          ? '#1f1f1f'
+          : 'rgba(0, 0, 0, 0.06)';
       }
     }
 
@@ -88,7 +88,7 @@ export default defineComponent({
     }
 
     if (props.block) {
-      useResizeObserver(".pure-segmented", () => {
+      useResizeObserver('.pure-segmented', () => {
         nextTick(() => {
           handleInit(curIndex.value);
         });
@@ -114,19 +114,19 @@ export default defineComponent({
           <label
             ref={`labelRef${index}`}
             class={[
-              "pure-segmented-item",
-              option?.disabled && "pure-segmented-item-disabled"
+              'pure-segmented-item',
+              option?.disabled && 'pure-segmented-item-disabled'
             ]}
             style={{
               background:
-                curMouseActive.value === index ? segmentedItembg.value : "",
+                curMouseActive.value === index ? segmentedItembg.value : '',
               color:
                 !option.disabled &&
                 (curIndex.value === index || curMouseActive.value === index)
                   ? isDark.value
-                    ? "rgba(255, 255, 255, 0.85)"
-                    : "rgba(0,0,0,.88)"
-                  : ""
+                    ? 'rgba(255, 255, 255, 0.85)'
+                    : 'rgba(0,0,0,.88)'
+                  : ''
             }}
             onMouseenter={event => handleMouseenter({ option, index }, event)}
             onMouseleave={event => handleMouseleave({ option, index }, event)}
@@ -143,7 +143,7 @@ export default defineComponent({
               {option.icon && !isFunction(option.label) ? (
                 <span
                   class="pure-segmented-item-icon"
-                  style={{ marginRight: option.label ? "6px" : 0 }}
+                  style={{ marginRight: option.label ? '6px' : 0 }}
                 >
                   {h(
                     useRenderIcon(option.icon, {
@@ -167,7 +167,7 @@ export default defineComponent({
 
     return () => (
       <div
-        class={["pure-segmented", props.block ? "pure-segmented-block" : ""]}
+        class={['pure-segmented', props.block ? 'pure-segmented-block' : '']}
       >
         <div class="pure-segmented-group">
           <div
@@ -175,7 +175,7 @@ export default defineComponent({
             style={{
               width: `${width.value}px`,
               transform: `translateX(${translateX.value}px)`,
-              display: initStatus.value ? "block" : "none"
+              display: initStatus.value ? 'block' : 'none'
             }}
           ></div>
           {rendLabel()}

@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { computed } from "vue";
-import { isUrl } from "@pureadmin/utils";
-import { menuType } from "@/layout/types";
+import { computed } from 'vue';
+import { isUrl } from '@pureadmin/utils';
+import { menuType } from '@/layout/types';
 
 defineOptions({
-  name: "LinkItem"
+  name: 'LinkItem'
 });
 
 const props = defineProps<{
@@ -16,8 +16,8 @@ const getLinkProps = (item: menuType) => {
   if (isExternalLink.value) {
     return {
       href: item.name,
-      target: "_blank",
-      rel: "noopener"
+      target: '_blank',
+      rel: 'noopener'
     };
   }
   return {
