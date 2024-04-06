@@ -1,5 +1,5 @@
 // 模拟后端动态生成路由
-import { defineFakeRoute } from "vite-plugin-fake-server/client";
+import { defineFakeRoute } from 'vite-plugin-fake-server/client';
 
 /**
  * roles：页面级别权限，这里模拟二种 "admin"、"common"
@@ -7,31 +7,31 @@ import { defineFakeRoute } from "vite-plugin-fake-server/client";
  * common：普通角色
  */
 const permissionRouter = {
-  path: "/permission",
+  path: '/permission',
   meta: {
-    title: "权限管理",
-    icon: "ep:lollipop",
+    title: '权限管理',
+    icon: 'ep:lollipop',
     rank: 10
   },
   children: [
     {
-      path: "/permission/page/index",
-      name: "PermissionPage",
+      path: '/permission/page/index',
+      name: 'PermissionPage',
       meta: {
-        title: "页面权限",
-        roles: ["admin", "common"]
+        title: '页面权限',
+        roles: ['admin', 'common']
       }
     },
     {
-      path: "/permission/button/index",
-      name: "PermissionButton",
+      path: '/permission/button/index',
+      name: 'PermissionButton',
       meta: {
-        title: "按钮权限",
-        roles: ["admin", "common"],
+        title: '按钮权限',
+        roles: ['admin', 'common'],
         auths: [
-          "permission:btn:add",
-          "permission:btn:edit",
-          "permission:btn:delete"
+          'permission:btn:add',
+          'permission:btn:edit',
+          'permission:btn:delete'
         ]
       }
     }
@@ -40,8 +40,8 @@ const permissionRouter = {
 
 export default defineFakeRoute([
   {
-    url: "/get-async-routes",
-    method: "get",
+    url: '/get-async-routes',
+    method: 'get',
     response: () => {
       return {
         success: true,
